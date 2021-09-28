@@ -1,4 +1,4 @@
-from integromat_wrapper.integromat import Webhooks
+from integromat_wrapper.integromat import Webhooks, Connections
 
 
 def test_webhooks(api_key, imtapp):
@@ -34,4 +34,14 @@ def test_webhooks(api_key, imtapp):
 
     data = [{'type': 'scope'}]
     r = imtwebhooks.update_scope(webhook_name, data)
+    assert r == {}
+
+    # Test attach connection
+    imtconnections = Connections(api_key, name)
+
+    # Create a connections
+    created_connections = imtconnections.create('imtconnect_test')
+    connections_name = created_connections.get('name')
+
+    r = imtwebhooks.add_connection(webhook_name, connections_name)
     assert r == {}

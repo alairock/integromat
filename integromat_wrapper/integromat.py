@@ -1,10 +1,14 @@
 import httpx
 
-# Integromat class with api methods
+
+class InvalidApiKey(Exception):
+    """ Invalid api key, or no key set"""
 
 
 class Integromat:
     def __init__(self, api_key):
+        if not api_key:
+            raise InvalidApiKey()
         self.api_key = api_key
         self.base_url = "https://api.integromat.com/v1"
         self.default_headers = {
@@ -18,7 +22,6 @@ class IMTBasic(Integromat):
         super().__init__(api_key)
 
     def whoami(self):
-        # use httpx to call the whoami api endpoint
         r = httpx.get(self.base_url + "/whoami", headers=self.default_headers)
         return r.json()
 
@@ -133,6 +136,22 @@ class Modules(Integromat):
         r = httpx.post(self.base_url, json=body, headers=self.default_headers)
         return r.json()
 
+    def add_connection(self, module, connection_name):
+        headers = {
+            ** self.default_headers,
+            "content-type": "text/plain"
+        }
+        r = httpx.put(self.base_url + f"/{module}/connection", content=connection_name, headers=headers)
+        return r.json()
+
+    def add_webhook(self, module, webhook_name):
+        headers = {
+            ** self.default_headers,
+            "content-type": "text/plain"
+        }
+        r = httpx.put(self.base_url + f"/{module}/webhook", content=webhook_name, headers=headers)
+        return r.json()
+
     def update_communications(self, module, body):
         r = httpx.put(self.base_url + f"/{module}/api", json=body, headers=self.default_headers)
         return r.json()
@@ -171,16 +190,24 @@ class RPCs(Integromat):
         r = httpx.post(self.base_url, json=body, headers=self.default_headers)
         return r.json()
 
+    def add_connection(self, rpc_name, connection_name):
+        headers = {
+            ** self.default_headers,
+            "content-type": "text/plain"
+        }
+        r = httpx.put(self.base_url + f"/{rpc_name}/connection", content=connection_name, headers=headers)
+        return r.json()
+
     def list(self):
         r = httpx.get(self.base_url, headers=self.default_headers)
         return r.json()
 
-    def update_communications(self, module, body):
-        r = httpx.put(self.base_url + f"/{module}/api", json=body, headers=self.default_headers)
+    def update_communications(self, rpc_name, body):
+        r = httpx.put(self.base_url + f"/{rpc_name}/api", json=body, headers=self.default_headers)
         return r.json()
 
-    def update_parameters(self, module, body):
-        r = httpx.put(self.base_url + f"/{module}/parameters", json=body, headers=self.default_headers)
+    def update_parameters(self, rpc_name, body):
+        r = httpx.put(self.base_url + f"/{rpc_name}/parameters", json=body, headers=self.default_headers)
         return r.json()
 
 
@@ -244,6 +271,14 @@ class Webhooks(Integromat):
         r = httpx.put(self.base_url + f"/{webhook}/api", json=body, headers=self.default_headers)
         return r.json()
 
+    def add_connection(self, webhook, connection_name):
+        headers = {
+            ** self.default_headers,
+            "content-type": "text/plain"
+        }
+        r = httpx.put(self.base_url + f"/{webhook}/connection", content=connection_name, headers=headers)
+        return r.json()
+
     def update_parameters(self, webhook, body):
         r = httpx.put(self.base_url + f"/{webhook}/parameters", json=body, headers=self.default_headers)
         return r.json()
@@ -288,7 +323,7 @@ class General(Integromat):
 
 
 class Connections(Integromat):
-    def __init__(self, api_key, app_name, app_version):
+    def __init__(self, api_key, app_name):
         super().__init__(api_key)
         self.base_url = self.base_url + f"/app/{app_name}/connection"
 

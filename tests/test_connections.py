@@ -3,7 +3,7 @@ from integromat_wrapper.integromat import Connections
 
 def test_connections(api_key, imtapp):
     name, version = imtapp
-    imtconnections = Connections(api_key, name, version)
+    imtconnections = Connections(api_key, name)
 
     # Create a connections
     created_connections = imtconnections.create('imtconnect_test')
