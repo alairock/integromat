@@ -1,6 +1,11 @@
 # Integromat Api Wrapper
 This is a python integromat wrapper. I am currently only supporting the Apps api's, as the Organizations and Scenarios api's are not fully supported by Integromat at the time of this writing. 
 
+# Integromat deploy!
+There is also a deploy command that you can use to deploy to integromat directly from the command line and a VERSION CONTROLLLED REPOSITORY. 
+
+This is a big deal, since integromat does not offer a way to version control their apps. I will document this soon. 
+
 ### Progress
 This project is currently in progress and is missing many endpoints. Feel free to submit a merge request to add endpoints.
 
