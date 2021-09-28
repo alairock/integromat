@@ -15,7 +15,7 @@ This project is currently in progress and is missing many endpoints. Feel free t
 - [ ] GET Get app details
 - [ ] PUT Change app details
 - [ ] GET Get app common data
-- [ ] PUT Change app common data
+- [X] PUT Change app common data
 - [ ] GET Get app docs
 - [ ] PUT Change app docs
 - [ ] GET Get app section
