@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "integromat-wrapper"
-version = "0.1.2"
+version = "0.1.3"
 description = ""
 authors = ["Skyler Lewis <skyler@hivewire.co>"]
 
