@@ -21,3 +21,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
 test = 'python -m pytest -m "not (seed or slow)"'
+
+[tool.poetry.scripts]
+integromat-deploy = "integromat_wrapper.deploy:deploy"
