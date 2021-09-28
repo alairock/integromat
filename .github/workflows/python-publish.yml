@@ -25,4 +25,4 @@ jobs:
       uses: JRubics/poetry-publish@v1.8
       with:
         # API token to authenticate when uploading package to PyPI (https://pypi.org/manage/account/)
-        pypi_token: arst
+        pypi_token: ${ secrets.PYPI_TOKEN }
